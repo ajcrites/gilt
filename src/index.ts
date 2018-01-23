@@ -14,12 +14,11 @@ async function run() {
   gilt.title = 'Hello!';
   gilt.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-  const { stderr }  = spawnSync('git', ['log']);
-  // content.setContent(stdout.toString());
-  console.log(stderr.toString());
+  const { stdout }  = spawnSync('git', ['log']);
+  content.setContent(stdout.toString());
 
-  // gilt.append(content);
-  // gilt.render();
+  gilt.append(content);
+  gilt.render();
 }
 
 if (require.main === module) {
