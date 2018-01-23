@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@types/blessed": "^0.1.8",
+    "blessed": "^0.1.81",
+    "child-process-promise": "^2.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  }
+}
