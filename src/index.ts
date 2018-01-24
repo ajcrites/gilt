@@ -1,5 +1,5 @@
+#!/usr/bin/env node
 import * as blessed from 'blessed';
-// import { spawn } from 'child-process-promise';
 import { spawnSync } from 'child_process';
 
 const program = (blessed as any).program();
