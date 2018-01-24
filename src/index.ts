@@ -1,28 +1,37 @@
-import { screen, box } from 'blessed';
+import * as blessed from 'blessed';
 // import { spawn } from 'child-process-promise';
 import { spawnSync } from 'child_process';
+
+const program = (blessed as any).program();
+const { screen, box, list, escape } = blessed;
 
 async function run() {
   const gilt = screen();
   const display = box({
     tags: true,
+    scrollable: true,
   });
 
   gilt.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-  // const { stdout } = spawnSync('git', ['log']);
-  const { stdout } = spawnSync('git', ['blame', 'src/index.ts']);
-  const initialContent = stdout.toString();
+  const { stdout } = spawnSync('git', ['-c', 'color.ui=always', 'log']);
+  // const { stdout } = spawnSync('git', ['blame', 'src/index.ts']);
+  const initialContent = escape(stdout.toString()) + '\n\n';
   const hashes = parseHashes(initialContent);
   let selectedHash = 0;
 
   display.setContent(highlightSelection(initialContent, hashes[0].offset));
+
+  const guessLines = initialContent.substr(hashes[0].offset, hashes[1].offset).match(/\n/g).length;
 
   gilt.key(['j', 'down'], () => {
     if (selectedHash < hashes.length) {
       selectedHash++;
 
       display.setContent(highlightSelection(initialContent, hashes[selectedHash].offset));
+      while (selectedHash * guessLines > +display.getScroll() - 5 && +display.getScroll() < +display.getScrollHeight()) {
+        display.scroll(guessLines);
+      }
       gilt.render();
     }
   });
@@ -31,13 +40,17 @@ async function run() {
     if (selectedHash > 0) {
       selectedHash--;
 
+      while (selectedHash * guessLines < +display.getScroll() + 5 && display.getScroll() > 0) {
+        display.scroll(-1 * guessLines);
+      }
       display.setContent(highlightSelection(initialContent, hashes[selectedHash].offset));
       gilt.render();
     }
   });
 
   gilt.key(['enter', 'd'], () => {
-    gilt.spawn('git', ['diff', hashes[selectedHash].hash], {});
+    program.clear();
+    gilt.spawn('git', ['diff', '-w', hashes[selectedHash].hash], {});
   });
 
   gilt.key(['c'], () => {
