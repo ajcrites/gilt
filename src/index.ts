@@ -78,7 +78,7 @@ if (require.main === module) {
 
 function parseHashes(str) {
   const hashes = [];
-  str.replace(/\b[0-9a-f]{5,40}\b/g, (match, offset) => {
+  str.replace(/(?:\b|\d\dm)([0-9a-f]{5,40})\b/g, (_, match, offset) => {
     hashes.push({ hash: match, offset });
   });
 
@@ -88,6 +88,6 @@ function parseHashes(str) {
 function highlightSelection(str, offset = 0) {
   return (
     str.substr(0, offset) +
-    str.substr(offset).replace(/\b[0-9a-f]{5,40}\b/, '{white-bg}$&{/}')
+    str.substr(offset).replace(/(\b|\d\dm)([0-9a-f]{5,40})\b/, '$1{white-bg}$2{/}')
   );
 }
