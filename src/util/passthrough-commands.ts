@@ -1,4 +1,5 @@
 export const passthroughCommands = [
+  'help',
   'clone',
   'config',
   'init',

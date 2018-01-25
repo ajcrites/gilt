@@ -1,4 +1,5 @@
 import { spawnSync } from 'child_process';
+import { parseHashes, highlightSelection, calculateScrollDistance } from '../util/parsing';
 import * as blessed from 'blessed';
 
 export const logParser = command => {
@@ -38,14 +39,11 @@ export const logParser = command => {
 
     gilt.key(['j', 'down'], () => {
       if (selectedHash < hashes.length - 1) {
-        const scrollDistance = (
-          initialContent
-            .substring(
-              hashes[selectedHash].offset,
-              hashes[selectedHash + 1].offset,
-            )
-            .match(/\n/g) || []
-        ).length;
+        const scrollDistance = calculateScrollDistance(
+          initialContent,
+          hashes[selectedHash].offset,
+          hashes[selectedHash + 1].offset,
+        );
 
         scrolledLines += scrollDistance;
         selectedHash++;
@@ -55,6 +53,7 @@ export const logParser = command => {
         );
 
         while (
+          // 5 line buffer for scrolling
           scrolledLines > +display.getScroll() - 5 &&
           +display.getScroll() < +display.getScrollHeight()
         ) {
@@ -66,16 +65,16 @@ export const logParser = command => {
 
     gilt.key(['k', 'up'], () => {
       if (selectedHash > 0) {
-        const scrollDistance = (
-          initialContent
-            .substring(
-              hashes[selectedHash - 1].offset,
-              hashes[selectedHash].offset,
-            )
-            .match(/\n/g) || []
-        ).length;
+        const scrollDistance = calculateScrollDistance(
+          initialContent,
+          hashes[selectedHash - 1].offset,
+          hashes[selectedHash].offset,
+        );
         scrolledLines -= scrollDistance;
         selectedHash--;
+        display.setContent(
+          highlightSelection(initialContent, hashes[selectedHash].offset),
+        );
 
         while (
           scrolledLines < +display.getScroll() + 5 &&
@@ -83,9 +82,6 @@ export const logParser = command => {
         ) {
           display.scroll(-1 * scrollDistance);
         }
-        display.setContent(
-          highlightSelection(initialContent, hashes[selectedHash].offset),
-        );
         gilt.render();
       }
     });
@@ -107,22 +103,5 @@ export const logParser = command => {
 
   gilt.append(display);
   gilt.render();
-}
+};
 
-function parseHashes(str) {
-  const hashes = [];
-  str.replace(/(?:\b|\d\dm)([0-9a-f]{5,40})\b/g, (_, match, offset) => {
-    hashes.push({ hash: match, offset });
-  });
-
-  return hashes;
-}
-
-function highlightSelection(str, offset = 0) {
-  return (
-    str.substr(0, offset) +
-    str
-      .substr(offset)
-      .replace(/(\b|\d\dm)([0-9a-f]{5,40})\b/, '$1{white-bg}$2{/}')
-  );
-}
