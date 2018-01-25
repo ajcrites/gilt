@@ -5,7 +5,10 @@
     "moduleResolution": "node",
     "declaration": true,
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "lib": ["dom", "es7"]
   },
   "include": [
     "src/**/*"
