@@ -9,7 +9,7 @@ export const logParser = command => {
   const { stdout, stderr } = spawnSync('git', [
     '-c',
     'color.ui=always',
-    command,
+    ...command,
   ]);
 
   const gilt = screen();
@@ -31,6 +31,11 @@ export const logParser = command => {
 
   const hashes = parseHashes(initialContent);
   let selectedHash = 0;
+
+  // No available log output (or no hashes to navigate) so we simply exit
+  if (!hashes.length) {
+    process.exit();
+  }
 
   display.setContent(highlightSelection(initialContent, hashes[0].offset));
 
