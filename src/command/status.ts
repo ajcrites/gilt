@@ -1,8 +1,8 @@
 import { spawnSync } from 'child_process';
-import { parseHashes, highlightSelection, calculateScrollDistance } from '../util/parsing';
+import { parseFiles, highlightString, calculateScrollDistance } from '../util/parsing';
 import * as blessed from 'blessed';
 
-export const logParser = command => {
+export const statusParser = command => {
   const program = (blessed as any).program();
   const { screen, box, escape } = blessed;
 
@@ -12,7 +12,9 @@ export const logParser = command => {
     ...command,
   ]);
 
-  const gilt = screen();
+  const gilt = (screen as any)({
+    debug: true,
+  });
   const display = box({
     tags: true,
     scrollable: true,
@@ -29,33 +31,34 @@ export const logParser = command => {
     process.exit(1);
   }
 
-  const hashes = parseHashes(initialContent);
-  let selectedHash = 0;
+  const files = parseFiles(initialContent);
+  let selectedFile = 0;
 
   // No available log output (or no hashes to navigate) so we simply exit
-  if (!hashes.length) {
+  if (!files.length) {
     console.log(initialContent);
     process.exit();
   }
 
-  display.setContent(highlightSelection(initialContent, hashes[0].offset));
+  display.setContent(highlightString(initialContent, files[0].file, files[0].offset));
 
-  if (hashes.length > 1) {
+  if (files.length > 1) {
     let scrolledLines = 0;
 
     gilt.key(['j', 'down'], () => {
-      if (selectedHash < hashes.length - 1) {
+      if (selectedFile < files.length - 1) {
         const scrollDistance = calculateScrollDistance(
           initialContent,
-          hashes[selectedHash].offset,
-          hashes[selectedHash + 1].offset,
+          files[selectedFile].offset,
+          files[selectedFile + 1].offset,
         );
 
         scrolledLines += scrollDistance;
-        selectedHash++;
+        selectedFile++;
 
+        gilt.debug(files[selectedFile].file);
         display.setContent(
-          highlightSelection(initialContent, hashes[selectedHash].offset),
+          highlightString(initialContent, files[selectedFile].file, files[selectedFile].offset),
         );
 
         while (
@@ -70,16 +73,16 @@ export const logParser = command => {
     });
 
     gilt.key(['k', 'up'], () => {
-      if (selectedHash > 0) {
+      if (selectedFile > 0) {
         const scrollDistance = calculateScrollDistance(
           initialContent,
-          hashes[selectedHash - 1].offset,
-          hashes[selectedHash].offset,
+          files[selectedFile - 1].offset,
+          files[selectedFile].offset,
         );
         scrolledLines -= scrollDistance;
-        selectedHash--;
+        selectedFile--;
         display.setContent(
-          highlightSelection(initialContent, hashes[selectedHash].offset),
+          highlightString(initialContent, files[selectedFile].file, files[selectedFile].offset),
         );
 
         while (
@@ -93,18 +96,13 @@ export const logParser = command => {
     });
   }
 
-  gilt.key(['enter', 'd'], () => {
+  gilt.key(['enter', 'e'], () => {
     program.clear();
     gilt.spawn(
-      'git',
-      ['-c', 'core.pager=less -+F', 'show', '-w', hashes[selectedHash].hash],
+      process.env.EDITOR,
+      [files[selectedFile].file],
       {},
     );
-  });
-
-  gilt.key(['c'], () => {
-    gilt.spawn('git', ['checkout', hashes[selectedHash].hash], {});
-    process.exit();
   });
 
   gilt.append(display);
