@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "no-duplicate-variable": true,
+    "quotemark": [true, "single", "avoid-escape"],
+    "indent": [true, "spaces"],
+    "prefer-const": true,
+    "no-trailing-whitespace": true,
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "semicolon": [true, "always"],
+    "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-shorthand": true,
+    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type", "check-preblock"],
+    "no-inferrable-types": true,
+    "curly": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-empty-interface": true,
+    "triple-equals": true,
+    "prefer-for-of": true,
+    "prefer-template": [true, "allow-single-concat"]
+  },
+  "rulesDirectory": [
+    "node_modules/tslint-eslint-rules/dist/rules"
+  ]
+}
