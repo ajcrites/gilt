@@ -1,113 +1,42 @@
-import { spawnSync } from 'child_process';
-import { parseHashes, highlightSelection, calculateScrollDistance } from '../util/parsing';
-import * as blessed from 'blessed';
+import { parseHashes } from '../util/parsing';
+import { Command } from './Command';
 
-export const logParser = command => {
-  const program = (blessed as any).program();
-  const { screen, box, escape } = blessed;
+export class LogParser extends Command {
+  parseData(content) {
+    const hashes = parseHashes(content);
 
-  const { stdout, stderr } = spawnSync('git', [
-    '-c',
-    'color.ui=always',
-    ...command,
-  ]);
-
-  const gilt = screen();
-  const display = box({
-    tags: true,
-    scrollable: true,
-  });
-
-  gilt.key(['escape', 'q', 'C-c'], () => process.exit(0));
-
-  const initialContent = escape(stdout.toString()) + '\n\n';
-
-  const error = stderr.toString();
-
-  if (error) {
-    console.error(error);
-    process.exit(1);
+    return hashes.map(hash => ({ block: hash.hash, offset: hash.offset }));
   }
 
-  const hashes = parseHashes(initialContent);
-  let selectedHash = 0;
+  run(command) {
+    super.run(command);
 
-  // No available log output (or no hashes to navigate) so we simply exit
-  if (!hashes.length) {
-    console.log(initialContent);
-    process.exit();
-  }
+    this.gilt.key(['j', 'down'], () => this.navigate(this.selectedBlock + 1));
 
-  display.setContent(highlightSelection(initialContent, hashes[0].offset));
+    this.gilt.key(['k', 'up'], () => this.navigate(this.selectedBlock - 1));
 
-  if (hashes.length > 1) {
-    let scrolledLines = 0;
-
-    gilt.key(['j', 'down'], () => {
-      if (selectedHash < hashes.length - 1) {
-        const scrollDistance = calculateScrollDistance(
-          initialContent,
-          hashes[selectedHash].offset,
-          hashes[selectedHash + 1].offset,
-        );
-
-        scrolledLines += scrollDistance;
-        selectedHash++;
-
-        display.setContent(
-          highlightSelection(initialContent, hashes[selectedHash].offset),
-        );
-
-        while (
-          // 5 line buffer for scrolling
-          scrolledLines > +display.getScroll() - 5 &&
-          +display.getScroll() < +display.getScrollHeight()
-        ) {
-          display.scroll(scrollDistance);
-        }
-        gilt.render();
-      }
+    this.gilt.key(['enter', 'd'], () => {
+      this.program.clear();
+      this.gilt.spawn(
+        'git',
+        [
+          '-c',
+          'core.pager=less -+F',
+          'show',
+          '-w',
+          this.coreDataBlocks[this.selectedBlock].block,
+        ],
+        {},
+      );
     });
 
-    gilt.key(['k', 'up'], () => {
-      if (selectedHash > 0) {
-        const scrollDistance = calculateScrollDistance(
-          initialContent,
-          hashes[selectedHash - 1].offset,
-          hashes[selectedHash].offset,
-        );
-        scrolledLines -= scrollDistance;
-        selectedHash--;
-        display.setContent(
-          highlightSelection(initialContent, hashes[selectedHash].offset),
-        );
-
-        while (
-          scrolledLines < +display.getScroll() + 5 &&
-          display.getScroll() > 0
-        ) {
-          display.scroll(-1 * scrollDistance);
-        }
-        gilt.render();
-      }
+    this.gilt.key(['c'], () => {
+      this.gilt.spawn(
+        'git',
+        ['checkout', this.coreDataBlocks[this.selectedBlock].block],
+        {},
+      );
+      process.exit();
     });
   }
-
-  gilt.key(['enter', 'd'], () => {
-    program.clear();
-    gilt.spawn(
-      'git',
-      ['-c', 'core.pager=less -+F', 'show', '-w', hashes[selectedHash].hash],
-      {},
-    );
-  });
-
-  gilt.key(['c'], () => {
-    gilt.spawn('git', ['checkout', hashes[selectedHash].hash], {});
-    process.exit();
-  });
-
-  gilt.append(display);
-  gilt.render();
-};
-
+}
