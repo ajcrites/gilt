@@ -1,8 +1,11 @@
 # gilt (pre alpha)
-`gilt` is an interactive command line tool for working with `git`.
+`gilt` is an interactive command line UI for working with `git`.
 
-`gilt` is an interactive command line tool for working with `git`. Don't feel
-*guilty* about using the command line for version control! Feel `gilt`y.
+[![version](https://img.shields.io/npm/v/gilt.svg)](https://www.npmjs.com/package/gilt)
+![dependencies](https://david-dm.org/ajcrites/gilt.svg)
+[![license](https://img.shields.io/npm/l/gilt.svg)](https://github.com/ajcrites/gilt/blob/master/LICENSE)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+
 I generally work in the terminal and use `git` on the command line. This does
 most of what I need it to do, but I always felt a little guilty watching some
 of my peers use cool `git` GUIs and be able to do some nice things like view
