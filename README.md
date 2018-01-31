@@ -6,6 +6,8 @@
 [![license](https://img.shields.io/npm/l/gilt.svg)](https://github.com/ajcrites/gilt/blob/master/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
+![gilt](https://raw.githubusercontent.com/ajcrites/gilt/master/assets/gilt-1.gif)
+
 I generally work in the terminal and use `git` on the command line. This does
 most of what I need it to do, but I always felt a little guilty watching some
 of my peers use cool `git` GUIs and be able to do some nice things like view

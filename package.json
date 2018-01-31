@@ -1,14 +1,14 @@
 {
   "name": "gilt",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Interactive command line UI for git",
   "author": "Andrew Crites <acjrites@gmail.com> (https://github.com/ajcrites/gilt)",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "main": "lib",
   "bin": "lib/index.js",
   "types": "lib",
   "scripts": {
-    "prepublish": "rm -rf lib && tsc && chmod +x lib/index.js",
+    "prepare": "rm -rf lib && tsc && chmod +x lib/index.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
