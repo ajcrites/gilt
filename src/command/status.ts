@@ -11,11 +11,17 @@ export class StatusParser extends Command {
   run(command) {
     super.run(command);
 
-    this.gilt.key(['j', 'down'], () => this.navigate(this.selectedBlock + 1));
+    this.display.key(['j', 'down'], () =>
+      this.navigate(this.selectedBlock + 1),
+    );
 
-    this.gilt.key(['k', 'up'], () => this.navigate(this.selectedBlock - 1));
+    this.display.key(['k', 'up'], () => this.navigate(this.selectedBlock - 1));
 
-    this.gilt.key(['enter', 'e'], () => {
+    this.display.key(['y'], () => {
+      this.copyToClipboard(this.coreDataBlocks[this.selectedBlock].block);
+    });
+
+    this.display.key(['enter', 'e'], () => {
       this.program.clear();
       this.gilt.spawn(
         process.env.EDITOR,

@@ -1,6 +1,10 @@
 {
-  "version": "0.0.0",
   "name": "gilt",
+  "version": "0.0.0",
+  "description": "Interactive command line UI for git",
+  "author": "Andrew Crites <acjrites@gmail.com> (https://github.com/ajcrites/gilt)",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "lib",
   "bin": "lib/index.js",
   "types": "lib",
   "scripts": {
@@ -26,5 +30,6 @@
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.6.2"
-  }
+  },
+  "repository": "github:ajcrites/gilt"
 }

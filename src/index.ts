@@ -5,6 +5,9 @@ import { Command } from './command/Command';
 import { LogParser } from './command/log';
 import { StatusParser } from './command/status';
 
+/**
+ * Parse the attempted command and run the appropriate parser
+ */
 export function run() {
   const fullCommand = process.argv.slice(2);
   const gitCommand = guessCommand(fullCommand[0]);

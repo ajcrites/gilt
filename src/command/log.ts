@@ -11,11 +11,13 @@ export class LogParser extends Command {
   run(command) {
     super.run(command);
 
-    this.gilt.key(['j', 'down'], () => this.navigate(this.selectedBlock + 1));
+    this.display.key(['j', 'down'], () =>
+      this.navigate(this.selectedBlock + 1),
+    );
 
-    this.gilt.key(['k', 'up'], () => this.navigate(this.selectedBlock - 1));
+    this.display.key(['k', 'up'], () => this.navigate(this.selectedBlock - 1));
 
-    this.gilt.key(['enter', 'd'], () => {
+    this.display.key(['enter', 'd'], () => {
       this.program.clear();
       this.gilt.spawn(
         'git',
@@ -30,7 +32,11 @@ export class LogParser extends Command {
       );
     });
 
-    this.gilt.key(['c'], () => {
+    this.display.key(['y'], () => {
+      this.copyToClipboard(this.coreDataBlocks[this.selectedBlock].block);
+    });
+
+    this.display.key(['c'], () => {
       this.gilt.spawn(
         'git',
         ['checkout', this.coreDataBlocks[this.selectedBlock].block],

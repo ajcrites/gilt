@@ -10,7 +10,6 @@ export const passthroughCommands = [
   'bisect',
   'grep',
   'show',
-  'status',
   'branch',
   'checkout',
   'commit',
@@ -23,12 +22,6 @@ export const passthroughCommands = [
   'push',
 ];
 
-export const giltCommands = [
-  'log',
-];
+export const giltCommands = ['log', 'status'];
 
-export const commands = [
-  ...passthroughCommands,
-  ...giltCommands,
-];
-
+export const commands = [...passthroughCommands, ...giltCommands];
