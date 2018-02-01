@@ -20,9 +20,4 @@ export interface Program {
    * Spawn a separate process
    */
   spawn(command: string, args?: string[], options?: {});
-
-  /**
-   * Clear the screen
-   */
-  clear(): void;
 }

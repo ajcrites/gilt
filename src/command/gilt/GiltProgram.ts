@@ -1,18 +1,12 @@
 import { Program } from '../Program';
 import { spawn, spawnSync } from 'child_process';
-import { Widgets, BlessedProgram, escape } from 'blessed';
+import { Widgets, escape } from 'blessed';
 
 export class GiltProgram implements Program {
   screen: Widgets.Screen;
-  program: BlessedProgram;
 
-  constructor(screen: Widgets.Screen, program: BlessedProgram) {
+  constructor(screen: Widgets.Screen) {
     this.screen = screen;
-    this.program = program;
-  }
-
-  clear() {
-    (this.program as any).clear();
   }
 
   start(command) {

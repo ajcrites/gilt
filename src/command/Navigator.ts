@@ -46,4 +46,9 @@ export interface Navigator {
    * Create a textbox for specifying search input for navigation
    */
   displaySearchInput();
+
+  /**
+   * Clear the screen
+   */
+  clear();
 }

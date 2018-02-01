@@ -1,4 +1,4 @@
-import * as blessed from 'blessed';
+import { screen, box } from 'blessed';
 import { Navigator } from './command/Navigator';
 import { Program } from './command/Program';
 
@@ -21,8 +21,6 @@ export class Gilt {
 
   start(fullCommand) {
     this.command = fullCommand;
-    const { screen, box } = blessed;
-    const program = (blessed as any).program();
     const giltScreen = screen();
     const giltDisplay = box({
       tags: true,
@@ -30,7 +28,7 @@ export class Gilt {
     });
     giltScreen.append(giltDisplay);
 
-    this.program = new GiltProgram(giltScreen, program);
+    this.program = new GiltProgram(giltScreen);
     this.content = this.program.start(fullCommand);
     this.navigator = new GiltNavigator(giltScreen, giltDisplay);
   }

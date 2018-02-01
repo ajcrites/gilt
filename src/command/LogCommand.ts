@@ -7,7 +7,7 @@ export class LogCommand extends Command {
     this.navigator.key(['k', 'up'], () => this.navigator.navigatePrev());
 
     this.navigator.key(['enter', 'd'], () => {
-      this.program.clear();
+      this.navigator.clear();
       this.program.spawn('git', [
         '-c',
         'core.pager=less -+F',

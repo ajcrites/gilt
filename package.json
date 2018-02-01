@@ -22,7 +22,7 @@
     "blessed": "^0.1.81"
   },
   "devDependencies": {
-    "@types/blessed": "^0.1.8",
+    "@types/blessed": "^0.1.10",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",

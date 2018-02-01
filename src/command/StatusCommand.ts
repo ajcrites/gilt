@@ -11,7 +11,7 @@ export class StatusCommand extends Command {
     });
 
     this.navigator.key(['enter', 'e'], () => {
-      this.program.clear();
+      this.navigator.clear();
       this.program.spawn(process.env.EDITOR, [
         this.navigator.getSelectedBlock().block,
       ]);

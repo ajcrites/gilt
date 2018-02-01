@@ -2,11 +2,16 @@
 # yarn lockfile v1
 
 
-"@types/blessed@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@types/blessed/-/blessed-0.1.8.tgz#08cbc89390cbadf40e0e1e66dca447b27322bf49"
+"@types/blessed@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@types/blessed/-/blessed-0.1.10.tgz#9d60bdb49ef54ad91a80a1a15477759fd787a6d0"
   dependencies:
+    "@types/events" "*"
     "@types/node" "*"
+
+"@types/events@*":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
 
 "@types/node@*":
   version "9.3.0"
