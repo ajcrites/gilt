@@ -129,20 +129,22 @@ filenames for `gilt status` or `gilt status -s`.
 ## Upcoming Additions
 
 * [ ] Search + highlight and select functionality
- * [ ] for `log`
- * [ ] for `status`
+  * [ ] for `log`
+  * [ ] for `status`
 * [ ] Add parsing of sub-blocks such as authors, branch names, and more.
- * [ ] for `log`
- * [ ] for `status`
+  * [ ] for `log`
+  * [ ] for `status`
 * [ ] Add ability to select more than one block
- * [ ] toggle
- * [ ] shift
+  * [ ] toggle
+  * [ ] shift
 * [ ] Add more commands
 * [ ] Automated testing of some kind
 * [ ] Mouse interactions
 * [ ] Page pass through output
 * [ ] Retain original `git` output
 * [ ] Use user defined pager for `diff` of `git log`.
+* [ ] Add API docs
+* [ ] Create a website
 
 ## Development
 To get set up for development, simply clone the repo and `yarn install` and
@@ -159,9 +161,12 @@ and any changes you make to the source should update `gilt`.
 If you're not satisfied with an existing parser or you want to add a new parser
 for yourself, you can write your own command using gilt.
 
-For an example of how parsers are built, please see the existing parsers
-* [src/command/log.ts](./src/command/log.ts)
-* [src/command/status.ts](./src/command/status.ts)
+Gilt offers a bit of flexibility in terms of how you set up handling for
+commands. You can use the built in `gilt` API to determine what command the
+user is trying, run the command, and use the built-in gilt functionality.
+
+For example, you may want to parse the output of a git subcommand and you may
+want to set up navigation and key/mouse bindings for a subcommand or both.
 
 ```node
 #!/usr/bin/env node
@@ -169,26 +174,56 @@ For an example of how parsers are built, please see the existing parsers
 
 // implement parser for git lg
 
-import { run } from 'gilt';
-import { LgParser } from './better-gilt/lg-parser.ts';
-const fullCommand = process.argv.slice(2);
+import { parseArgs, run } from 'gilt';
+import { Gilt } from 'gilt/Gilt';
 
-if ('lg' === fullCommand[0]) {
-  new LgParser().run(fullCommand);
+import { betterParser, BetterCommand } from './better-gilt';
+
+// Get the git subcommand the user is trying to run
+const fullCommand = parseArgs();
+// The git subcommand itself, e.g. `'log'`, `'status'`
+const gitCommand = fullCommand[0];
+
+class BetterGilt extends Gilt {
+    run(fullCommand) {
+        // Sets up blessed / command line interface
+        this.start(fullCommand);
+
+        // Set the content for the command line interface.
+        // The imaginary `betterParser` parses the output to create Blocks
+        this.navigator.setContent(this.content, betterParser(this.content));
+
+        // BetterCommand extends Command and implements the `run` method which
+        // sets up key bindings and other interface functionality
+        const command = new BetterCommand(this.program, this.navigator);
+        command.run();
+    }
+}
+
+const betterGilt = new BetterGilt;
+
+if ('lg' === gitCommand) {
+    betterGilt.run();
 } else {
-  // fall back to `gilt`'s normal behavior for other commands.
-  run();
+    // Fall back to the default gilt functionality for all other commands
+    run();
 }
 ```
 
-Custom parsers should extend the base class [`Command`](./src/command/Command.ts)
-and implement the abstract method `parseData`. This should return an array of
-"data blocks" which are representations of the key list elements of the output
-of the command -- for example, commit hashes and filenames. See [`Block`](./src/command/Command.ts)
-for the interface. A block has a `block` property which is a string of the
-acutual element (the hash or filename) and an `offset` which is its position
-in output used by navigation.
+You must run the `Navigator.setContent` method with parameters of the content to
+display and an array of "data blocks" which are representations of the key list
+elements of the output of the command -- for example, commit hashes and
+filenames. See [`Block`](./src/command/Block.ts) for the interface.  A block has
+a `block` property which is a string of the acutual element (the hash or
+filename) and an `offset` which is its position in output used by navigation.
 
-Next you should also implement `run` and call `super.run()` to set up the
-default command behavior as well as your custom key / mouse events or other
-special handling.
+You can make the `content` and `blocks` anything you want, but these are
+usually the output of the git subcommand and the blocks representing the
+navigation elements of that content.
+
+You can also extend [`Command`](./src/command/Command.ts) to create a command
+that sets up key bindings and interacts with the display. You must inject a
+[`Program`](./src/command/Program.ts) and [`Navigator`](./src/command/Navigator.ts)
+into the constructor of your command. This will give you access to blessed
+operators on the program/navigator allowing you to set up key bindings, etc.
+while using the program and navigator APIs.
