@@ -106,7 +106,7 @@ through these files and interact with them using the following key commands:
 * <kbd>j</kbd>, <kbd>down</kbd> - select next file.
 * <kbd>k</kbd>, <kbd>up</kbd> - select previous file.
 * <kbd>enter</kbd>, <kbd>e</kbd> - runs `$EDITOR <selected-file>`.
-* <kbd>y</kbd> - copy the selected filename to the clipboard.[
+* <kbd>y</kbd> - copy the selected filename to the clipboard.
 
 *Note:* You must set your `$EDITOR` environment variable to use the editor
 functionality.

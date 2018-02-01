@@ -1,9 +1,18 @@
 #!/usr/bin/env node
+import * as blessed from 'blessed';
+
+import { giltCommands } from './util/passthrough-commands';
 import { passThrough } from './command/passthrough';
 import { guessCommand } from './util/guess-command';
-import { Command } from './command/Command';
-import { LogParser } from './command/log';
-import { StatusParser } from './command/status';
+import { LogCommand } from './command/LogCommand';
+import { StatusCommand } from './command/StatusCommand';
+import { Block } from './command/Block';
+import { CommandConstructor } from './command/Command';
+
+import { GiltNavigator } from './command/gilt/GiltNavigator';
+import { GiltProgram } from './command/gilt/GiltProgram';
+
+import { parseHashes, parseFiles } from './util/parsing';
 
 /**
  * Parse the attempted command and run the appropriate parser
@@ -11,22 +20,49 @@ import { StatusParser } from './command/status';
 export function run() {
   const fullCommand = process.argv.slice(2);
   const gitCommand = guessCommand(fullCommand[0]);
-  let command: Command;
 
+  if (!giltCommands.includes(gitCommand)) {
+    return passThrough(fullCommand);
+  }
+
+  const { screen, box } = blessed;
+  const program = (blessed as any).program();
+  const giltScreen = screen();
+  const giltDisplay = box({
+    tags: true,
+    scrollable: true,
+  });
+  giltScreen.append(giltDisplay);
+
+  const giltProgram = new GiltProgram(giltScreen, program);
+  const giltNavigator = new GiltNavigator(giltScreen, giltDisplay);
+
+  const content = giltProgram.start(fullCommand);
+
+  let commandConstructor: CommandConstructor;
+  let navigationBlocks: Block[];
   switch (gitCommand) {
     case 'status':
-      command = new StatusParser();
+      navigationBlocks = parseFiles(content).map(block => ({
+        block: block.file,
+        offset: block.offset,
+      }));
+      commandConstructor = StatusCommand;
       break;
 
     case 'log':
-      command = new LogParser();
+      navigationBlocks = parseHashes(content).map(block => ({
+        block: block.hash,
+        offset: block.offset,
+      }));
+      commandConstructor = LogCommand;
       break;
-
-    default:
-      return passThrough(fullCommand);
   }
 
-  command.run(fullCommand);
+  giltNavigator.setContent(content, navigationBlocks);
+  const giltCommand = new commandConstructor(giltProgram, giltNavigator);
+
+  giltCommand.run();
 }
 
 if (require.main === module) {
