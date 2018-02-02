@@ -1,6 +1,7 @@
 # gilt (pre alpha)
 `gilt` is an interactive command line UI for working with `git`.
 
+[![build status](https://travis-ci.org/ajcrites/gilt.svg?branch=master)](https://travis-ci.org/ajcrites/gilt)
 [![version](https://img.shields.io/npm/v/gilt.svg)](https://www.npmjs.com/package/gilt)
 ![dependencies](https://david-dm.org/ajcrites/gilt.svg)
 [![license](https://img.shields.io/npm/l/gilt.svg)](https://github.com/ajcrites/gilt/blob/master/LICENSE)
