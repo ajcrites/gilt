@@ -138,7 +138,7 @@ filenames for `gilt status` or `gilt status -s`.
   * [ ] toggle
   * [ ] shift
 * [ ] Add more commands
-* [ ] Automated testing of some kind
+* [x] Automated testing of some kind
 * [ ] Mouse interactions
 * [ ] Page pass through output
 * [ ] Retain original `git` output

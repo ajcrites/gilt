@@ -4,6 +4,8 @@ import { Block } from '../Block';
 
 import { calculateScrollDistance, highlightString } from '../../util/parsing';
 
+export class MissingBlockError extends Error {}
+
 export class GiltNavigator implements Navigator {
   screen: Widgets.Screen;
   display: Widgets.BoxElement;
@@ -21,13 +23,10 @@ export class GiltNavigator implements Navigator {
   setContent(content, blocks: Block[]) {
     this.content = content;
     this.navigationBlocks = blocks;
+    const currentBlock = this.getSelectedBlock();
 
     this.display.setContent(
-      highlightString(
-        this.content,
-        this.navigationBlocks[this.selectedBlockIdx].block,
-        this.navigationBlocks[this.selectedBlockIdx].offset,
-      ),
+      highlightString(this.content, currentBlock.block, currentBlock.offset),
     );
     this.screen.render();
   }
@@ -37,6 +36,10 @@ export class GiltNavigator implements Navigator {
   }
 
   getSelectedBlock() {
+    const currentBlock = this.navigationBlocks[this.selectedBlockIdx];
+    if (!currentBlock) {
+      throw new MissingBlockError();
+    }
     return this.navigationBlocks[this.selectedBlockIdx];
   }
 

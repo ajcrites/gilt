@@ -19,6 +19,7 @@ export class Gilt {
   program: Program;
   navigator: Navigator;
 
+  /* istanbul ignore next */
   start(fullCommand) {
     this.command = fullCommand;
     const giltScreen = screen();
@@ -62,8 +63,10 @@ export class Gilt {
         break;
     }
 
-    this.navigator.setContent(this.content, navigationBlocks);
-    const command = new commandConstructor(this.program, this.navigator);
-    command.run();
+    if (navigationBlocks.length) {
+      this.navigator.setContent(this.content, navigationBlocks);
+      const command = new commandConstructor(this.program, this.navigator);
+      command.run();
+    }
   }
 }
