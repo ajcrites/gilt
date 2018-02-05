@@ -1,7 +1,7 @@
 // General parsing utility functions
 export const parseHashes = str => {
   const hashes = [];
-  str.replace(/(?:\b|\d\dm)([0-9a-f]{5,40})\b/g, (_, hash, offset) => {
+  str.replace(/(?:\b|\d\dm)([0-9a-f]{6,40})\b/g, (_, hash, offset) => {
     hashes.push({ hash, offset });
   });
 
@@ -29,8 +29,7 @@ export const highlightSelection = (str, offset = 0) =>
     .replace(/(\b|\d\dm)([0-9a-f]{5,40})\b/, '$1{white-bg}$2{/}');
 
 export const highlightString = (str, match, offset = 0) =>
-  str.substr(0, offset) +
-  str.substr(offset).replace(match, '{white-bg}$&{/}');
+  str.substr(0, offset) + str.substr(offset).replace(match, '{white-bg}$&{/}');
 
 // substring takes (start, end) vs. substr which is (start, length)
 export const calculateScrollDistance = (str, start, end) =>

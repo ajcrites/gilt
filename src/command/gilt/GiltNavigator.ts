@@ -24,11 +24,8 @@ export class GiltNavigator implements Navigator {
   setContent(content, blocks: Block[]) {
     this.content = content;
     this.navigationBlocks = blocks;
-    const currentBlock = this.getSelectedBlock();
 
-    this.display.setContent(
-      highlightString(this.content, currentBlock.block, currentBlock.offset),
-    );
+    this.setContentForDisplay();
     this.screen.render();
   }
 
@@ -103,13 +100,7 @@ export class GiltNavigator implements Navigator {
       // Effectively select this block
       this.selectedBlockIdx = blockIdx;
 
-      this.display.setContent(
-        highlightString(
-          this.content,
-          this.navigationBlocks[this.selectedBlockIdx].block,
-          this.navigationBlocks[this.selectedBlockIdx].offset,
-        ),
-      );
+      this.setContentForDisplay();
 
       // Continue to scroll the user as long as the selected block is offscreen
       // TODO perhaps handle this with `scrollTo(scrolledLines)`
@@ -118,6 +109,24 @@ export class GiltNavigator implements Navigator {
       }
       this.screen.render();
     }
+  }
+
+  setContentForDisplay() {
+    const selectedBlock = this.navigationBlocks[this.selectedBlockIdx];
+    const highlightedContent = highlightString(
+      this.content,
+      selectedBlock.block,
+      selectedBlock.offset,
+    );
+
+    const displaySpace = +this.display.width * +this.display.height;
+
+    this.display.setContent(
+      highlightedContent.substring(
+        Math.max(0, selectedBlock.offset - displaySpace),
+        selectedBlock.offset + displaySpace,
+      ),
+    );
   }
 
   displaySearchInput() {
