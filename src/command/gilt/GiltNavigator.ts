@@ -1,3 +1,4 @@
+import * as blessed from 'blessed';
 import { textbox, Widgets } from 'blessed';
 import { Navigator } from '../Navigator';
 import { Block } from '../Block';
@@ -132,6 +133,8 @@ export class GiltNavigator implements Navigator {
   }
 
   clear() {
-    this.screen.program.clear();
+    // This is the only way I can clear the screen consistently
+    // this.screen.program.clear() does not work, nor does clearRegion
+    blessed.program().clear();
   }
 }
