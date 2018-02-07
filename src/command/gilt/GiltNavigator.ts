@@ -1,5 +1,4 @@
 import * as blessed from 'blessed';
-import { textbox, Widgets } from 'blessed';
 import { Navigator } from '../Navigator';
 import { Block } from '../Block';
 
@@ -8,15 +7,18 @@ import { calculateScrollDistance, highlightString } from '../../util/parsing';
 export class MissingBlockError extends Error {}
 
 export class GiltNavigator implements Navigator {
-  screen: Widgets.Screen;
-  display: Widgets.BoxElement;
+  screen: blessed.Widgets.Screen;
+  display: blessed.Widgets.BoxElement;
   content = '';
   navigationBlocks = [];
   selectedBlockIdx = 0;
 
   private scrolledLines = 0;
 
-  constructor(screen: Widgets.Screen, display: Widgets.BoxElement) {
+  constructor(
+    screen: blessed.Widgets.Screen,
+    display: blessed.Widgets.BoxElement,
+  ) {
     this.screen = screen;
     this.display = display;
   }
@@ -130,7 +132,7 @@ export class GiltNavigator implements Navigator {
   }
 
   displaySearchInput() {
-    const searchInput = textbox({
+    const searchInput = blessed.textbox({
       height: 1,
       top: '100%-1',
       inputOnFocus: true,

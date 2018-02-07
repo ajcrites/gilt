@@ -3104,9 +3104,24 @@ tsc-watch@^1.0.15:
     ps-tree "^1.1.0"
     typescript "*"
 
-tslib@^1.0.0, tslib@^1.8.0, tslib@^1.8.1:
+tslib@^1.0.0, tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.0.tgz#e37a86fda8cbbaf23a057f473c9f4dc64e5fc2e8"
+
+tslint-config-airbnb@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-airbnb/-/tslint-config-airbnb-5.6.0.tgz#12254d1187f16ad321cc532bc9f9485108c5414b"
+  dependencies:
+    tslint-consistent-codestyle "^1.10.0"
+    tslint-eslint-rules "^4.1.1"
+    tslint-microsoft-contrib "~5.0.1"
+
+tslint-consistent-codestyle@^1.10.0:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/tslint-consistent-codestyle/-/tslint-consistent-codestyle-1.11.1.tgz#fa39ff5f5f8a25c537bd1e1f50de6190a2f4d70d"
+  dependencies:
+    tslib "^1.7.1"
+    tsutils "^2.21.0"
 
 tslint-eslint-rules@^4.1.1:
   version "4.1.1"
@@ -3115,6 +3130,12 @@ tslint-eslint-rules@^4.1.1:
     doctrine "^0.7.2"
     tslib "^1.0.0"
     tsutils "^1.4.0"
+
+tslint-microsoft-contrib@~5.0.1:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/tslint-microsoft-contrib/-/tslint-microsoft-contrib-5.0.2.tgz#ecc2a797f777a12f0066944cec0c81a9e7c59ee9"
+  dependencies:
+    tsutils "^2.12.1"
 
 tslint@^5.9.1:
   version "5.9.1"
@@ -3140,6 +3161,12 @@ tsutils@^1.4.0:
 tsutils@^2.12.1:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.19.1.tgz#76d7ebdea9d7a7bf4a05f50ead3701b0168708d7"
+  dependencies:
+    tslib "^1.8.1"
+
+tsutils@^2.21.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.21.0.tgz#43466a2283a0abce64e2209bc732ad72f8a04fab"
   dependencies:
     tslib "^1.8.1"
 

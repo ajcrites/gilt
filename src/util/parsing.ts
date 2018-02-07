@@ -11,9 +11,10 @@ export const parseHashes = str => {
 export const parseFiles = str => {
   const files = [];
   str.replace(
+    // tslint:disable-next-line:max-line-length
     /(?:^\t(?:(?:\u001b\[\d{2}m)?(?:\w+:\s+)?)?|^(?:(?:\u001b\[\d{0,2}m)?[MADRCU ?!]){2}?(?:\u001b\[m)? )(.*)/gm,
     (_, file, offset) => {
-      files.push({ file: file.replace(/\u001b\[m$/, ''), offset });
+      files.push({ offset, file: file.replace(/\u001b\[m$/, '') });
     },
   );
 

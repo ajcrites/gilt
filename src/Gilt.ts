@@ -63,7 +63,7 @@ export class Gilt {
         break;
     }
 
-    if (navigationBlocks.length) {
+    if (navigationBlocks.length > 0) {
       this.navigator.setContent(this.content, navigationBlocks);
       const command = new commandConstructor(this.program, this.navigator);
       command.run();
