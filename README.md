@@ -2,8 +2,8 @@
 `gilt` is an interactive command line UI for working with `git`.
 
 [![build status](https://travis-ci.org/ajcrites/gilt.svg?branch=master)](https://travis-ci.org/ajcrites/gilt)
+[![coverage](https://codecov.io/github/ajcrites/gilt)](https://img.shields.io/codecov/c/github/ajcrites/gilt.svg)
 [![version](https://img.shields.io/npm/v/gilt.svg)](https://www.npmjs.com/package/gilt)
-![dependencies](https://david-dm.org/ajcrites/gilt.svg)
 [![license](https://img.shields.io/npm/l/gilt.svg)](https://github.com/ajcrites/gilt/blob/master/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
@@ -96,7 +96,7 @@ through these hashes and interact with them using the following key commands:
 * <kbd>j</kbd>, <kbd>down</kbd> - select next hash.
 * <kbd>k</kbd>, <kbd>up</kbd> - select previous hash.
 * <kbd>enter</kbd>, <kbd>d</kbd> - view diff of selected hash.
- * specifically, this runs `git -c core.pager='less -+F' show -w <commit>`.
+  * specifically, this runs `git -c core.pager='less -+F' show -w <commit>`.
 * <kbd>c</kbd> - checkout the selected hash.
 * <kbd>y</kbd> - copy the selected hash to the clipboard.
 
