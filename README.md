@@ -2,7 +2,7 @@
 `gilt` is an interactive command line UI for working with `git`.
 
 [![build status](https://travis-ci.org/ajcrites/gilt.svg?branch=master)](https://travis-ci.org/ajcrites/gilt)
-[![coverage](https://codecov.io/github/ajcrites/gilt)](https://img.shields.io/codecov/c/github/ajcrites/gilt.svg)
+[![coverage](https://img.shields.io/codecov/c/github/ajcrites/gilt.svg)](https://codecov.io/github/ajcrites/gilt)
 [![version](https://img.shields.io/npm/v/gilt.svg)](https://www.npmjs.com/package/gilt)
 [![license](https://img.shields.io/npm/l/gilt.svg)](https://github.com/ajcrites/gilt/blob/master/LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
