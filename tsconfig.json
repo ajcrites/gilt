@@ -1,19 +1,9 @@
 {
+  "extends": "./node_modules/ts-config-mobiquity-server/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "moduleResolution": "node",
     "declaration": true,
-    "outDir": "lib",
-    "rootDir": "src",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "lib": ["dom", "es7"]
+    "outDir": "lib"
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/**/__tests__/*"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["src/**/__tests__/*"]
 }
