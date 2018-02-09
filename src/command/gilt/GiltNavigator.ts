@@ -96,9 +96,13 @@ export class GiltNavigator implements Navigator {
 
       this.setContentForDisplay();
 
-      this.display.scrollTo(this.scrolledLines + 5 * scrollingMultiplier);
-      this.screen.render();
+      this.display.scrollTo(this.scrolledLines);
+    } else {
+      // Continue to scroll when a boundary (first/last) block is selected
+      // but there is more scroll content offscreen
+      this.display.scroll(3 * scrollingMultiplier);
     }
+    this.screen.render();
   }
 
   setContentForDisplay() {
