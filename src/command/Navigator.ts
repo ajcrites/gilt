@@ -30,12 +30,12 @@ export interface Navigator {
   /**
    * Navigate to the next block index relative to the selection
    */
-  navigateNext();
+  navigateNext(count?: number);
 
   /**
    * Navigate to the previous block index relative to the selection
    */
-  navigatePrev();
+  navigatePrev(count?: number);
 
   /**
    * Navigate to the selected block index

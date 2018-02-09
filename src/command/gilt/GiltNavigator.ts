@@ -43,16 +43,16 @@ export class GiltNavigator implements Navigator {
     return this.navigationBlocks[this.selectedBlockIdx];
   }
 
-  navigateNext() {
-    this.navigateTo(this.selectedBlockIdx + 1);
+  navigateNext(count = 1) {
+    this.navigateTo(this.selectedBlockIdx + count);
   }
 
-  navigatePrev() {
-    this.navigateTo(this.selectedBlockIdx - 1);
+  navigatePrev(count = 1) {
+    this.navigateTo(this.selectedBlockIdx + -1 * count);
   }
 
   navigateTo(blockIdx) {
-    // Whether the nextBlockIdx is valid to select
+    // Whether the blockIdx is valid to select
     let boundaryCheck: boolean;
     // The earlier block positionally. This may be the next block if the user
     // is scrolling up
@@ -64,13 +64,16 @@ export class GiltNavigator implements Navigator {
 
     // User is navigating forwards
     if (blockIdx > this.selectedBlockIdx) {
-      boundaryCheck = this.selectedBlockIdx < this.navigationBlocks.length - 1;
       // Selected block position is off screen or at least 5 lines near the
       // bottom of the screen (buffer). A safety check is also added to ensure
       // that if the display is scrolled as far as the scroll height scrolling
       // is stopped but this shouldn't happen under normal circumstances
       earlierBlock = this.navigationBlocks[this.selectedBlockIdx];
       laterBlock = this.navigationBlocks[blockIdx];
+
+      boundaryCheck =
+        this.selectedBlockIdx < this.navigationBlocks.length - 1 &&
+        !!laterBlock;
       scrollingMultiplier = 1;
     } else {
       // User is navigating backwards
@@ -80,6 +83,8 @@ export class GiltNavigator implements Navigator {
       // measure, but this shouldn't happen under normal circumstances
       earlierBlock = this.navigationBlocks[blockIdx];
       laterBlock = this.navigationBlocks[this.selectedBlockIdx];
+
+      boundaryCheck = this.selectedBlockIdx > 0 && !!earlierBlock;
       scrollingMultiplier = -1;
     }
 
