@@ -54,8 +54,6 @@ export class GiltNavigator implements Navigator {
   navigateTo(blockIdx) {
     // Whether the nextBlockIdx is valid to select
     let boundaryCheck: boolean;
-    // Whether the next block is offscreen. This helps enforce scroll
-    let isOffScreen: () => boolean;
     // The earlier block positionally. This may be the next block if the user
     // is scrolling up
     let earlierBlock: Block;
@@ -71,9 +69,6 @@ export class GiltNavigator implements Navigator {
       // bottom of the screen (buffer). A safety check is also added to ensure
       // that if the display is scrolled as far as the scroll height scrolling
       // is stopped but this shouldn't happen under normal circumstances
-      isOffScreen = () =>
-        this.scrolledLines > +this.display.getScroll() - 5 &&
-        +this.display.getScroll() < +this.display.getScrollHeight();
       earlierBlock = this.navigationBlocks[this.selectedBlockIdx];
       laterBlock = this.navigationBlocks[blockIdx];
       scrollingMultiplier = 1;
@@ -83,9 +78,6 @@ export class GiltNavigator implements Navigator {
       // Selected block is off the top of the screen or 5 lines near the top.
       // Since the display can't scroll before 0, cancel scrolling as a safety
       // measure, but this shouldn't happen under normal circumstances
-      isOffScreen = () =>
-        this.scrolledLines < +this.display.getScroll() + 5 &&
-        this.display.getScroll() > 0;
       earlierBlock = this.navigationBlocks[blockIdx];
       laterBlock = this.navigationBlocks[this.selectedBlockIdx];
       scrollingMultiplier = -1;
@@ -104,11 +96,7 @@ export class GiltNavigator implements Navigator {
 
       this.setContentForDisplay();
 
-      // Continue to scroll the user as long as the selected block is offscreen
-      // TODO perhaps handle this with `scrollTo(scrolledLines)`
-      while (isOffScreen()) {
-        this.display.scroll(scrollDistance * scrollingMultiplier);
-      }
+      this.display.scrollTo(this.scrolledLines + 5 * scrollingMultiplier);
       this.screen.render();
     }
   }
