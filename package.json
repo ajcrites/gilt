@@ -1,6 +1,6 @@
 {
   "name": "gilt",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Interactive command line UI for git",
   "author": "Andrew Crites <acjrites@gmail.com> (https://github.com/ajcrites/gilt)",
   "license": "MIT",
