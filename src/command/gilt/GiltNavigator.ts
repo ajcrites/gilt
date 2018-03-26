@@ -51,6 +51,12 @@ export class GiltNavigator implements Navigator {
     this.navigateTo(this.selectedBlockIdx + -1 * count);
   }
 
+  changeSelectedBlockValidity(valid = false) {
+    this.navigationBlocks[this.selectedBlockIdx].valid = valid;
+    this.setContentForDisplay();
+    this.screen.render();
+  }
+
   navigateTo(blockIdx) {
     // Whether the blockIdx is valid to select
     let boundaryCheck: boolean;
@@ -115,6 +121,7 @@ export class GiltNavigator implements Navigator {
     const highlightedContent = highlightString(
       this.content,
       selectedBlock.block,
+      selectedBlock.valid ? 'white-bg' : 'red-bg',
       selectedBlock.offset,
     );
 
@@ -138,6 +145,30 @@ export class GiltNavigator implements Navigator {
     this.screen.append(searchInput);
     this.screen.render();
     searchInput.focus();
+  }
+
+  ask(text, cb) {
+    const prompt = blessed.question({
+      left: 'center',
+      top: 'center',
+      width: '30%',
+      height: '30%',
+      border: 'line',
+    });
+    prompt.ask(text, cb);
+
+    this.screen.append(prompt);
+    this.screen.render();
+    prompt.key(['y'], () => {
+      prompt._.okay.press();
+      this.setContentForDisplay();
+      this.screen.render();
+    });
+    prompt.key(['n'], () => {
+      prompt._.cancel.press();
+      this.setContentForDisplay();
+      this.screen.render();
+    });
   }
 
   clear() {

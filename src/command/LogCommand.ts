@@ -30,6 +30,8 @@ export class LogCommand extends Command {
         'checkout',
         this.navigator.getSelectedBlock().block,
       ]);
+
+      // FIXME handle at the program level
       process.exit();
     });
   }

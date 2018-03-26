@@ -4,4 +4,5 @@
 export interface Block {
   block: string;
   offset: number;
+  valid: boolean;
 }

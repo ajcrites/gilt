@@ -20,5 +20,17 @@ export class StatusCommand extends Command {
         this.navigator.getSelectedBlock().block,
       ]);
     });
+
+    this.navigator.key(['x'], () => {
+      this.navigator.ask(
+        'Are you sure you want to rm this file (y) / (n)?',
+        (_, ok) => {
+          if (ok) {
+            this.program.spawn('rm', [this.navigator.getSelectedBlock().block]);
+            this.navigator.changeSelectedBlockValidity(false);
+          }
+        },
+      );
+    });
   }
 }

@@ -43,9 +43,19 @@ export interface Navigator {
   navigateTo(blockIdx: number);
 
   /**
+   * Changes the validity of the selected block
+   */
+  changeSelectedBlockValidity(validity: boolean);
+
+  /**
    * Create a textbox for specifying search input for navigation
    */
   displaySearchInput();
+
+  /**
+   * Create a text prompt
+   */
+  ask(text: string, cb: Function);
 
   /**
    * Clear the screen

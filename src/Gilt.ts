@@ -45,6 +45,7 @@ export class Gilt {
         navigationBlocks = parseFiles(this.content).map(block => ({
           block: block.file,
           offset: block.offset,
+          valid: true,
         }));
         commandConstructor = StatusCommand;
         break;
@@ -53,6 +54,7 @@ export class Gilt {
         navigationBlocks = parseHashes(this.content).map(block => ({
           block: block.hash,
           offset: block.offset,
+          valid: true,
         }));
         commandConstructor = LogCommand;
         break;
