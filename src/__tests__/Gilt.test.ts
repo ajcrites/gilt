@@ -22,6 +22,8 @@ const mockNavigator: Navigator = {
   navigateTo() {},
   displaySearchInput() {},
   clear: jest.fn(),
+  changeSelectedBlockValidity: jest.fn(),
+  ask: jest.fn(),
 };
 
 const mockProgram: Program = {
