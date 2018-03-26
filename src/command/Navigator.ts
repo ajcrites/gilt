@@ -48,6 +48,11 @@ export interface Navigator {
   changeSelectedBlockValidity(validity: boolean);
 
   /**
+   * Removes the specified block
+   */
+  removeBlock(block: number);
+
+  /**
    * Create a textbox for specifying search input for navigation
    */
   displaySearchInput();

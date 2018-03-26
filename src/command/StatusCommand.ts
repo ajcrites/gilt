@@ -38,7 +38,7 @@ export class StatusCommand extends Command {
         (_, ok) => {
           if (ok) {
             this.program.spawn('rm', [this.navigator.getSelectedBlock().block]);
-            this.navigator.changeSelectedBlockValidity(false);
+            this.navigator.removeBlock(this.navigator.selectedBlockIdx);
           }
         },
       );

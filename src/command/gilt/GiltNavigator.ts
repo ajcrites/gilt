@@ -57,6 +57,23 @@ export class GiltNavigator implements Navigator {
     this.screen.render();
   }
 
+  removeBlock(blockIdx) {
+    const removedBlock = this.navigationBlocks[blockIdx];
+    if (removedBlock) {
+      this.navigationBlocks.splice(blockIdx, 1);
+
+      this.content = highlightString(
+        this.content,
+        removedBlock.block,
+        'black-bg',
+        removedBlock.offset,
+      );
+
+      this.setContentForDisplay();
+      this.screen.render();
+    }
+  }
+
   navigateTo(blockIdx) {
     // Whether the blockIdx is valid to select
     let boundaryCheck: boolean;
