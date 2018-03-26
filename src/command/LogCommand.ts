@@ -10,7 +10,7 @@ export class LogCommand extends Command {
 
     this.navigator.key(['u', 'pageup'], () => this.navigator.navigatePrev(5));
 
-    this.navigator.key(['enter'], () => {
+    this.navigator.key(['enter', 'f'], () => {
       this.navigator.clear();
       this.program.spawn('git', [
         '-c',

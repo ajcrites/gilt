@@ -14,6 +14,17 @@ export class StatusCommand extends Command {
       this.program.copyToClipboard(this.navigator.getSelectedBlock().block);
     });
 
+    this.navigator.key(['f'], () => {
+      this.navigator.clear();
+      this.program.spawn('git', [
+        '-c',
+        'core.pager=less -+F',
+        'diff',
+        '-w',
+        this.navigator.getSelectedBlock().block,
+      ]);
+    });
+
     this.navigator.key(['enter', 'e'], () => {
       this.navigator.clear();
       this.program.spawn(process.env.EDITOR, [

@@ -95,7 +95,9 @@ through these hashes and interact with them using the following key commands:
 
 * <kbd>j</kbd>, <kbd>down</kbd> - select next hash.
 * <kbd>k</kbd>, <kbd>up</kbd> - select previous hash.
-* <kbd>enter</kbd>, <kbd>d</kbd> - view diff of selected hash.
+* <kbd>u</kbd>, <kbd>Page Up</kbd> - move up 5 hashes
+* <kbd>d</kbd>, <kbd>Page Down</kbd> - move down 5 hashes
+* <kbd>enter</kbd>, <kbd>f</kbd> - view diff of selected hash.
   * specifically, this runs `git -c core.pager='less -+F' show -w <commit>`.
 * <kbd>c</kbd> - checkout the selected hash.
 * <kbd>y</kbd> - copy the selected hash to the clipboard.
@@ -106,7 +108,12 @@ through these files and interact with them using the following key commands:
 
 * <kbd>j</kbd>, <kbd>down</kbd> - select next file.
 * <kbd>k</kbd>, <kbd>up</kbd> - select previous file.
+* <kbd>u</kbd>, <kbd>Page Up</kbd> - move up 5 files
+* <kbd>d</kbd>, <kbd>Page Down</kbd> - move down 5 files
 * <kbd>enter</kbd>, <kbd>e</kbd> - runs `$EDITOR <selected-file>`.
+* <kbd>f</kbd> - view diff of the current file
+  * specifically, this runs `git -c core.pager='less -+F' diff -w <file>`.
+* <kbd>x</kbd> - remove the selected file (you are prompted for y/n first).
 * <kbd>y</kbd> - copy the selected filename to the clipboard.
 
 *Note:* You must set your `$EDITOR` environment variable to use the editor
