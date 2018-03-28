@@ -70,7 +70,7 @@ export class GiltNavigator implements Navigator {
         removedBlock.offset,
       );
 
-      if (this.navigationBlocks.length) {
+      if (this.navigationBlocks.length > 0) {
         while (this.selectedBlockIdx > this.navigationBlocks.length - 1) {
           this.selectedBlockIdx -= 1;
         }
@@ -146,7 +146,7 @@ export class GiltNavigator implements Navigator {
     // buffer of additional display when updating the screen
     const displaySpace = +this.display.width * +this.display.height;
 
-    if (this.navigationBlocks.length) {
+    if (this.navigationBlocks.length > 0) {
       const selectedBlock = this.navigationBlocks[this.selectedBlockIdx];
       const highlightedContent = highlightString(
         this.content,
