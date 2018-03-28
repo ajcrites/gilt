@@ -1,6 +1,5 @@
 import * as blessed from 'blessed';
 import { GiltNavigator } from '../GiltNavigator';
-import { Program } from '../../Program';
 import { Block } from '../../Block';
 
 const screen: blessed.Widgets.Screen = {
@@ -258,3 +257,61 @@ const display: blessed.Widgets.BoxElement = {
   eventNames: null,
   listenerCount: null,
 };
+
+describe('GiltNavigator', () => {
+  test('selects first block when navigating to and removing all other blocks', () => {
+    const navigator = new GiltNavigator(screen, display);
+    const testContent = `block1
+content1.1
+content1.2
+
+block2
+content2.1
+content2.2
+
+block3
+content3.1
+content3.2
+`;
+    const testBlocks: Block[] = [];
+    testContent.replace(/(block\d+)/g, (_, block, offset) => {
+      testBlocks.push({ block, offset, valid: true });
+      return '';
+    });
+
+    navigator.setContent(testContent, testBlocks);
+    navigator.navigateNext();
+    navigator.removeBlock(navigator.selectedBlockIdx);
+    navigator.removeBlock(navigator.selectedBlockIdx);
+
+    expect(navigator.selectedBlockIdx).toBe(0);
+  });
+
+  test('handles removal of all blocks', () => {
+    const navigator = new GiltNavigator(screen, display);
+    const testContent = `block1
+content1.1
+content1.2
+
+block2
+content2.1
+content2.2
+
+block3
+content3.1
+content3.2
+`;
+    const testBlocks: Block[] = [];
+    testContent.replace(/(block\d+)/g, (_, block, offset) => {
+      testBlocks.push({ block, offset, valid: true });
+      return '';
+    });
+
+    navigator.setContent(testContent, testBlocks);
+    navigator.removeBlock(navigator.selectedBlockIdx);
+    navigator.removeBlock(navigator.selectedBlockIdx);
+    navigator.removeBlock(navigator.selectedBlockIdx);
+
+    expect(navigator.navigationBlocks.length).toBe(0);
+  });
+});
