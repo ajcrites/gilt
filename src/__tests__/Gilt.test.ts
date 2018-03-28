@@ -23,6 +23,7 @@ const mockNavigator: Navigator = {
   displaySearchInput() {},
   clear: jest.fn(),
   changeSelectedBlockValidity: jest.fn(),
+  removeBlock: jest.fn(),
   ask: jest.fn(),
 };
 

@@ -57,6 +57,30 @@ export class GiltNavigator implements Navigator {
     this.screen.render();
   }
 
+  removeBlock(blockIdx) {
+    const removedBlock = this.navigationBlocks[blockIdx];
+    if (removedBlock) {
+      this.navigationBlocks.splice(blockIdx, 1);
+
+      // Highlight the removed block in black
+      this.content = highlightString(
+        this.content,
+        removedBlock.block,
+        'black-bg',
+        removedBlock.offset,
+      );
+
+      if (this.navigationBlocks.length > 0) {
+        while (this.selectedBlockIdx > this.navigationBlocks.length - 1) {
+          this.selectedBlockIdx -= 1;
+        }
+      }
+
+      this.setContentForDisplay();
+      this.screen.render();
+    }
+  }
+
   navigateTo(blockIdx) {
     // Whether the blockIdx is valid to select
     let boundaryCheck: boolean;
@@ -117,22 +141,29 @@ export class GiltNavigator implements Navigator {
   }
 
   setContentForDisplay() {
-    const selectedBlock = this.navigationBlocks[this.selectedBlockIdx];
-    const highlightedContent = highlightString(
-      this.content,
-      selectedBlock.block,
-      selectedBlock.valid ? 'white-bg' : 'red-bg',
-      selectedBlock.offset,
-    );
-
+    // Display one full screen of characters
+    // There will usually be a lot less than that, so this provides a small
+    // buffer of additional display when updating the screen
     const displaySpace = +this.display.width * +this.display.height;
 
-    this.display.setContent(
-      highlightedContent.substring(
-        Math.max(0, selectedBlock.offset - displaySpace),
-        selectedBlock.offset + displaySpace,
-      ),
-    );
+    if (this.navigationBlocks.length > 0) {
+      const selectedBlock = this.navigationBlocks[this.selectedBlockIdx];
+      const highlightedContent = highlightString(
+        this.content,
+        selectedBlock.block,
+        selectedBlock.valid ? 'white-bg' : 'red-bg',
+        selectedBlock.offset,
+      );
+
+      this.display.setContent(
+        highlightedContent.substring(
+          Math.max(0, selectedBlock.offset - displaySpace),
+          selectedBlock.offset + displaySpace,
+        ),
+      );
+    } else {
+      this.display.setContent(this.content.substring(0, displaySpace));
+    }
   }
 
   displaySearchInput() {
