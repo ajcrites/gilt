@@ -34,5 +34,18 @@ export class LogCommand extends Command {
       // FIXME handle at the program level
       process.exit();
     });
+
+    this.navigator.key(['r'], () => {
+      this.program
+        .spawn('git', [
+          'rebase',
+          '-i',
+          // To perform an interactive rebase from the selected commit, we need
+          // to go back one additional commit -- hence the '%'
+          this.navigator.getSelectedBlock().block + '^',
+          // FIXME handle at the program level
+        ])
+        .on('close', () => process.exit());
+    });
   }
 }

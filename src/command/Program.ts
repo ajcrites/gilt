@@ -1,3 +1,5 @@
+import { ChildProcess } from 'child_process';
+
 /**
  * Interface that represents the running program and handles high level
  * program commands and content handling
@@ -19,5 +21,5 @@ export interface Program {
   /**
    * Spawn a separate process
    */
-  spawn(command: string, args?: string[], options?: {});
+  spawn(command: string, args?: string[], options?: {}): ChildProcess;
 }
