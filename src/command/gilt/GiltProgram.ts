@@ -1,5 +1,5 @@
 import { Program } from '../Program';
-import { spawn, spawnSync } from 'child_process';
+import { spawn, spawnSync, ChildProcess } from 'child_process';
 import { Widgets, escape } from 'blessed';
 
 export class GiltProgram implements Program {
@@ -34,7 +34,7 @@ export class GiltProgram implements Program {
     pbcopy.stdin.end();
   }
 
-  spawn(command, args = [], options = {}) {
-    this.screen.spawn(command, args, options);
+  spawn(command, args = [], options = {}): ChildProcess {
+    return this.screen.spawn(command, args, options);
   }
 }

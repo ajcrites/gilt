@@ -100,6 +100,7 @@ through these hashes and interact with them using the following key commands:
 * <kbd>enter</kbd>, <kbd>f</kbd> - view diff of selected hash.
   * specifically, this runs `git -c core.pager='less -+F' show -w <commit>`.
 * <kbd>c</kbd> - checkout the selected hash.
+* <kbd>r</kbd> - perform an interactive rebase from this commit.
 * <kbd>y</kbd> - copy the selected hash to the clipboard.
 
 ### `status`
@@ -158,7 +159,7 @@ filenames for `gilt status` or `gilt status -s`.
 To get set up for development, simply clone the repo and `yarn install` and
 you should be good to go.
 
-`yarn prepublish` will create the output command in `lib/index.js` which you
+`yarn prepublishOnly` will create the output command in `lib/index.js` which you
 can run as an executable.
 
 I recommend running `yarn link` to link the repository for local development
