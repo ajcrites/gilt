@@ -60,7 +60,7 @@ describe('Gilt', () => {
     listeners['enter']();
     listeners['y']();
 
-    expect(navigator.key).toHaveBeenCalledTimes(7);
+    expect(navigator.key).toHaveBeenCalledTimes(8);
     expect(navigator.navigateNext).toHaveBeenCalledTimes(1);
     expect(navigator.navigatePrev).toHaveBeenCalledTimes(1);
     expect(navigator.clear).toHaveBeenCalledTimes(1);
