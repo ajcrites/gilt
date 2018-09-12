@@ -8,9 +8,9 @@
   "bin": "lib/index.js",
   "types": "lib",
   "scripts": {
-    "prepublishOnly": "rm -rf lib && tsc && chmod +x lib/index.js",
+    "prepublishOnly": "rm -rf lib && tsc --project tsconfig.build.json && chmod +x lib/index.js",
     "precommit": "lint-staged",
-    "test": "tsc --project tsconfig.test.json && tslint --project tsconfig.test.json && jest --coverage"
+    "test": "tsc && tslint --project tsconfig.json && jest --coverage"
   },
   "lint-staged": {
     "**/*.ts": [
@@ -29,7 +29,7 @@
     "jest": "^22.4.3",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
-    "ts-config-mobiquity-server": "^0.0.17",
+    "ts-config-mobiquity-server": "^2.0.0",
     "ts-jest": "^22.4.2",
     "tslint": "^5.9.1",
     "typescript": "^2.8.1"

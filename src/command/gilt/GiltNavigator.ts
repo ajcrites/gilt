@@ -106,8 +106,6 @@ export class GiltNavigator implements Navigator {
         !!laterBlock;
       scrollingMultiplier = 1;
     } else {
-      // User is navigating backwards
-      boundaryCheck = this.selectedBlockIdx > 0;
       // Selected block is off the top of the screen or 5 lines near the top.
       // Since the display can't scroll before 0, cancel scrolling as a safety
       // measure, but this shouldn't happen under normal circumstances

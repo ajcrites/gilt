@@ -1247,6 +1247,10 @@ iconv-lite@0.4.19:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
+immutable@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+
 import-local@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/import-local/-/import-local-1.0.0.tgz#5e4ffdc03f4fe6c009c6729beb29631c2f8227bc"
@@ -3045,18 +3049,19 @@ trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
 
-ts-config-mobiquity-core@^0.0.17:
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/ts-config-mobiquity-core/-/ts-config-mobiquity-core-0.0.17.tgz#4d67539b4ee49790f66ea7f5c1a0a71e9557987d"
+ts-config-mobiquity-core@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ts-config-mobiquity-core/-/ts-config-mobiquity-core-2.0.0.tgz#b7c3d11c9ba556349c3e4f5fe6865d774b6630a4"
   dependencies:
     tslint-config-airbnb "^5.6.0"
+    tslint-sonarts "^1.7.0"
 
-ts-config-mobiquity-server@^0.0.17:
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/ts-config-mobiquity-server/-/ts-config-mobiquity-server-0.0.17.tgz#289ae9c185ba7ee2867794a1b2b9472b3d687e8a"
+ts-config-mobiquity-server@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ts-config-mobiquity-server/-/ts-config-mobiquity-server-2.0.0.tgz#eb5d408a687cc882d5340c9060b3aacf27567e45"
   dependencies:
     "@types/node" "^8.9.1"
-    ts-config-mobiquity-core "^0.0.17"
+    ts-config-mobiquity-core "^2.0.0"
 
 ts-jest@^22.4.2:
   version "22.4.2"
@@ -3104,6 +3109,12 @@ tslint-microsoft-contrib@~5.0.1:
   resolved "https://registry.yarnpkg.com/tslint-microsoft-contrib/-/tslint-microsoft-contrib-5.0.2.tgz#ecc2a797f777a12f0066944cec0c81a9e7c59ee9"
   dependencies:
     tsutils "^2.12.1"
+
+tslint-sonarts@^1.7.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/tslint-sonarts/-/tslint-sonarts-1.8.0.tgz#80f2e8addd418c3b8807fc0155dec33b5a81e8d1"
+  dependencies:
+    immutable "^3.8.2"
 
 tslint@^5.9.1:
   version "5.9.1"
