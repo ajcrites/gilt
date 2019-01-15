@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { giltCommands } from './util/passthrough-commands';
 import { guessCommand } from './util/guess-command';
 import { passThrough } from './command/passthrough';
@@ -21,8 +20,4 @@ export function run() {
   const gilt = new Gilt();
   gilt.start(fullCommand);
   gilt.run(gitCommand, fullCommand);
-}
-
-if (require.main === module) {
-  run();
 }
