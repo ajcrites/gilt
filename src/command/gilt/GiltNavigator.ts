@@ -112,6 +112,7 @@ export class GiltNavigator implements Navigator {
       earlierBlock = this.navigationBlocks[blockIdx];
       laterBlock = this.navigationBlocks[this.selectedBlockIdx];
 
+      // User is navigating backwards
       boundaryCheck = this.selectedBlockIdx > 0 && !!earlierBlock;
       scrollingMultiplier = -1;
     }

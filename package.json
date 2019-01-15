@@ -5,12 +5,16 @@
   "author": "Andrew Crites <acjrites@gmail.com> (https://github.com/ajcrites/gilt)",
   "license": "MIT",
   "main": "lib",
-  "bin": "lib/index.js",
+  "bin": "dist/index.js",
   "types": "lib",
   "scripts": {
-    "prepublishOnly": "rm -rf lib && tsc --project tsconfig.build.json && chmod +x lib/index.js",
-    "precommit": "lint-staged",
+    "prepublishOnly": "rm -rf lib dist && tsc --project tsconfig.build.json && cp src/bin.js lib && yarn ncc build lib/bin.js -m",
     "test": "tsc && tslint --project tsconfig.json && jest --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && yarn test"
+    }
   },
   "lint-staged": {
     "**/*.ts": [
@@ -24,30 +28,16 @@
   },
   "devDependencies": {
     "@types/blessed": "^0.1.10",
-    "@types/jest": "^22.2.2",
-    "husky": "^0.14.3",
-    "jest": "^22.4.3",
-    "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2",
-    "ts-config-mobiquity-server": "^2.0.0",
-    "ts-jest": "^22.4.2",
-    "tslint": "^5.9.1",
-    "typescript": "^2.8.1"
+    "@types/jest": "^23.3.12",
+    "@zeit/ncc": "^0.9.0",
+    "husky": "^1.3.1",
+    "jest": "^23.6.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "^1.15.3",
+    "ts-config-mobiquity-server": "^5.0.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.2"
   },
-  "repository": "github:ajcrites/gilt",
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "collectCoverageFrom": [
-      "**/*.ts",
-      "!src/index.ts",
-      "!lib/**"
-    ],
-    "transform": {
-      "\\.ts$": "ts-jest"
-    },
-    "testRegex": "/__tests__/.+\\.test\\.ts$"
-  }
+  "repository": "github:ajcrites/gilt"
 }

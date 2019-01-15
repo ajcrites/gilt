@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-- '9'
-- '8'
+- '11'
+- '10'
 script:
 - yarn test
 - npx codecov
