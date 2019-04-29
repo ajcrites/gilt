@@ -1,17 +1,15 @@
-import { screen, box } from 'blessed';
-import { Navigator } from './command/Navigator';
-import { Program } from './command/Program';
+import { box, screen } from 'blessed';
 
-import { GiltNavigator } from './command/gilt/GiltNavigator';
-import { GiltProgram } from './command/gilt/GiltProgram';
-
-import { LogCommand } from './command/LogCommand';
-import { StatusCommand } from './command/StatusCommand';
 import { Block } from './command/Block';
 import { CommandConstructor } from './command/Command';
-
-import { parseHashes, parseFiles } from './util/parsing';
+import { GiltNavigator } from './command/gilt/GiltNavigator';
+import { GiltProgram } from './command/gilt/GiltProgram';
+import { LogCommand } from './command/LogCommand';
+import { Navigator } from './command/Navigator';
 import { passThrough } from './command/passthrough';
+import { Program } from './command/Program';
+import { StatusCommand } from './command/StatusCommand';
+import { parseFiles, parseHashes } from './util/parsing';
 
 export class Gilt {
   content: string;

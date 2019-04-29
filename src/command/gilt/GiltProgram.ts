@@ -1,6 +1,7 @@
+import { escape, Widgets } from 'blessed';
+import { ChildProcess, spawn, spawnSync } from 'child_process';
+
 import { Program } from '../Program';
-import { spawn, spawnSync, ChildProcess } from 'child_process';
-import { Widgets, escape } from 'blessed';
 
 export class GiltProgram implements Program {
   screen: Widgets.Screen;

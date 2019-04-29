@@ -1,8 +1,8 @@
 import * as blessed from 'blessed';
-import { Navigator } from '../Navigator';
-import { Block } from '../Block';
 
 import { calculateScrollDistance, highlightString } from '../../util/parsing';
+import { Block } from '../Block';
+import { Navigator } from '../Navigator';
 
 export class MissingBlockError extends Error {}
 

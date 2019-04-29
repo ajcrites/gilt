@@ -1,5 +1,5 @@
-import { Program } from './Program';
 import { Navigator } from './Navigator';
+import { Program } from './Program';
 
 export interface CommandConstructor {
   new (program: Program, navigator: Navigator): Command;

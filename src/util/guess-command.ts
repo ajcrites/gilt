@@ -1,4 +1,5 @@
 import { spawnSync } from 'child_process';
+
 import { commands } from './passthrough-commands';
 
 export const guessCommand = (command: string) => {

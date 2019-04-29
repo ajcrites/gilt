@@ -19,7 +19,7 @@
   "lint-staged": {
     "**/*.ts": [
       "prettier --write --parser typescript --single-quote --trailing-comma all",
-      "tslint --fix",
+      "tslint --fix --config tslint.fix.json",
       "git add"
     ]
   },

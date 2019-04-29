@@ -1,7 +1,7 @@
-import { Gilt } from '../Gilt';
-import { Program } from '../command/Program';
-import { Navigator } from '../command/Navigator';
 import { Block } from '../command/Block';
+import { Navigator } from '../command/Navigator';
+import { Program } from '../command/Program';
+import { Gilt } from '../Gilt';
 
 const mockNavigator: Navigator = {
   content: '',
