@@ -13,14 +13,14 @@ export interface Navigator {
    * @param content original unparsed content for display
    * @param blocks for navigation handling
    */
-  setContent(content: string, blocks: Block[]);
+  setContent(content: string, blocks: Block[]): void;
 
   /**
    * Start up the program and interface
    * @param command array of command line arguments for git command to run
    * @return content of run command used to parse for navigation
    */
-  key(keys: string[], listener: () => void);
+  key(keys: string[], listener: () => void): void;
 
   /**
    * @return the currently selected block
@@ -30,40 +30,40 @@ export interface Navigator {
   /**
    * Navigate to the next block index relative to the selection
    */
-  navigateNext(count?: number);
+  navigateNext(count?: number): void;
 
   /**
    * Navigate to the previous block index relative to the selection
    */
-  navigatePrev(count?: number);
+  navigatePrev(count?: number): void;
 
   /**
    * Navigate to the selected block index
    */
-  navigateTo(blockIdx: number);
+  navigateTo(blockIdx: number): void;
 
   /**
    * Changes the validity of the selected block
    */
-  changeSelectedBlockValidity(validity: boolean);
+  changeSelectedBlockValidity(validity: boolean): void;
 
   /**
    * Removes the specified block
    */
-  removeBlock(block: number);
+  removeBlock(block: number): void;
 
   /**
    * Create a textbox for specifying search input for navigation
    */
-  displaySearchInput();
+  displaySearchInput(): void;
 
   /**
    * Create a text prompt
    */
-  ask(text: string, cb: Function);
+  ask(text: string, cb: Function): void;
 
   /**
    * Clear the screen
    */
-  clear();
+  clear(): void;
 }

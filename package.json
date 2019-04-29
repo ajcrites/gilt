@@ -2,7 +2,7 @@
   "name": "gilt",
   "version": "0.0.4",
   "description": "Interactive command line UI for git",
-  "author": "Andrew Crites <acjrites@gmail.com> (https://github.com/ajcrites/gilt)",
+  "author": "Andrew Crites <ajcrites@gmail.com> (https://github.com/ajcrites/gilt)",
   "license": "MIT",
   "main": "lib",
   "bin": "dist/index.js",
@@ -34,10 +34,10 @@
     "jest": "^23.6.0",
     "lint-staged": "^8.1.0",
     "prettier": "^1.15.3",
-    "ts-config-mobiquity-server": "^5.0.0",
+    "ts-config-mobiquity-server": "^9.0.0-alpha.3",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.2"
+    "typescript": "^3.4.5"
   },
   "repository": "github:ajcrites/gilt"
 }

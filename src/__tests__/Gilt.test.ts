@@ -8,7 +8,7 @@ const mockNavigator: Navigator = {
   navigationBlocks: [] as Block[],
   selectedBlockIdx: 0,
 
-  getSelectedBlock: jest.fn(function () {
+  getSelectedBlock: jest.fn(function() {
     return this.navigationBlocks[this.selectedBlockIdx];
   }),
 
@@ -41,10 +41,10 @@ describe('Gilt', () => {
   it('runs log for log command', () => {
     const gilt = new Gilt();
     const navigator = mockNavigator;
-    const listeners = {};
+    const listeners: { [x: string]: Function } = {};
 
     navigator.key = jest.fn((keys, listener) => {
-      keys.forEach(key => {
+      keys.forEach((key: string) => {
         listeners[key] = listener;
       });
     });

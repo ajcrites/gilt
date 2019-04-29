@@ -10,7 +10,7 @@ export class GiltNavigator implements Navigator {
   screen: blessed.Widgets.Screen;
   display: blessed.Widgets.BoxElement;
   content = '';
-  navigationBlocks = [];
+  navigationBlocks: Block[] = [];
   selectedBlockIdx = 0;
 
   private scrolledLines = 0;
@@ -23,7 +23,7 @@ export class GiltNavigator implements Navigator {
     this.display = display;
   }
 
-  setContent(content, blocks: Block[]) {
+  setContent(content: string, blocks: Block[]) {
     this.content = content;
     this.navigationBlocks = blocks;
 
@@ -31,7 +31,7 @@ export class GiltNavigator implements Navigator {
     this.screen.render();
   }
 
-  key(keys, listener) {
+  key(keys: string[], listener: () => void) {
     this.screen.key(keys, listener);
   }
 
@@ -57,7 +57,7 @@ export class GiltNavigator implements Navigator {
     this.screen.render();
   }
 
-  removeBlock(blockIdx) {
+  removeBlock(blockIdx: number) {
     const removedBlock = this.navigationBlocks[blockIdx];
     if (removedBlock) {
       this.navigationBlocks.splice(blockIdx, 1);
@@ -81,7 +81,7 @@ export class GiltNavigator implements Navigator {
     }
   }
 
-  navigateTo(blockIdx) {
+  navigateTo(blockIdx: number) {
     // Whether the blockIdx is valid to select
     let boundaryCheck: boolean;
     // The earlier block positionally. This may be the next block if the user
@@ -177,7 +177,7 @@ export class GiltNavigator implements Navigator {
     searchInput.focus();
   }
 
-  ask(text, cb) {
+  ask(text: string, cb: () => void) {
     const prompt = blessed.question({
       left: 'center',
       top: 'center',

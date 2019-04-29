@@ -35,7 +35,7 @@ export class StatusCommand extends Command {
     this.navigator.key(['x'], () => {
       this.navigator.ask(
         'Are you sure you want to rm this file (y) / (n)?',
-        (_, ok) => {
+        (_: string, ok: boolean) => {
           if (ok) {
             this.program.spawn('rm', [this.navigator.getSelectedBlock().block]);
             this.navigator.removeBlock(this.navigator.selectedBlockIdx);

@@ -23,5 +23,5 @@ export abstract class Command {
    *
    * @param string git subcommand to run. The output of this command is parsed and used
    */
-  abstract run();
+  abstract run(): void;
 }

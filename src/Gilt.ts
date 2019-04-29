@@ -15,12 +15,12 @@ import { passThrough } from './command/passthrough';
 
 export class Gilt {
   content: string;
-  command: string;
+  command: string[];
   program: Program;
   navigator: Navigator;
 
   /* istanbul ignore next */
-  start(fullCommand) {
+  start(fullCommand: string[]) {
     this.command = fullCommand;
     const giltScreen = screen();
     const giltDisplay = box({
