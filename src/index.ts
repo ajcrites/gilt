@@ -1,8 +1,7 @@
-import { giltCommands } from './util/passthrough-commands';
-import { guessCommand } from './util/guess-command';
 import { passThrough } from './command/passthrough';
-
 import { Gilt } from './Gilt';
+import { guessCommand } from './util/guess-command';
+import { giltCommands } from './util/passthrough-commands';
 
 export function parseArgs() {
   return process.argv.slice(2);

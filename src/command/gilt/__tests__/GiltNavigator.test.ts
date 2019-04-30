@@ -1,6 +1,7 @@
 import * as blessed from 'blessed';
-import { GiltNavigator } from '../GiltNavigator';
+
 import { Block } from '../../Block';
+import { GiltNavigator } from '../GiltNavigator';
 
 const screen: blessed.Widgets.Screen = {
   cleanSides: null,

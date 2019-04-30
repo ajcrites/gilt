@@ -1,5 +1,5 @@
-import { Program } from './Program';
 import { Navigator } from './Navigator';
+import { Program } from './Program';
 
 export interface CommandConstructor {
   new (program: Program, navigator: Navigator): Command;
@@ -23,5 +23,5 @@ export abstract class Command {
    *
    * @param string git subcommand to run. The output of this command is parsed and used
    */
-  abstract run();
+  abstract run(): void;
 }

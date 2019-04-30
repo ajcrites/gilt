@@ -1,6 +1,7 @@
+import { escape, Widgets } from 'blessed';
+import { ChildProcess, spawn, spawnSync } from 'child_process';
+
 import { Program } from '../Program';
-import { spawn, spawnSync, ChildProcess } from 'child_process';
-import { Widgets, escape } from 'blessed';
 
 export class GiltProgram implements Program {
   screen: Widgets.Screen;
@@ -9,7 +10,7 @@ export class GiltProgram implements Program {
     this.screen = screen;
   }
 
-  start(command) {
+  start(command: string[]) {
     const { stdout, stderr } = spawnSync('git', [
       '-c',
       'color.ui=always',
@@ -28,13 +29,13 @@ export class GiltProgram implements Program {
     return escape(stdout.toString());
   }
 
-  copyToClipboard(text) {
+  copyToClipboard(text: string) {
     const pbcopy = spawn('reattach-to-user-namespace', ['pbcopy']);
     pbcopy.stdin.write(text);
     pbcopy.stdin.end();
   }
 
-  spawn(command, args = [], options = {}): ChildProcess {
+  spawn(command: string, args: string[] = [], options = {}): ChildProcess {
     return this.screen.spawn(command, args, options);
   }
 }

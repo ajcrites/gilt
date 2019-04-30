@@ -1,7 +1,8 @@
 import { spawnSync } from 'child_process';
+
 import { commands } from './passthrough-commands';
 
-export const guessCommand = command => {
+export const guessCommand = (command: string) => {
   // This is a normal git command, so pass it on for normal handling
   if (commands.includes(command)) {
     return command;
